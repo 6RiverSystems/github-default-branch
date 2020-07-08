@@ -20,6 +20,12 @@ module.exports = async function (
         to: `${owner}/${repo}.svg?branch=${target}`,
       },
     ],
+    "./circleci/config.yml": [
+      {
+        from: `- ${old}`,
+        to: `- ${target}`
+      }
+    ]
   };
 
   for (let path in replacements) {
