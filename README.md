@@ -84,7 +84,7 @@ Add a file to src/replacements with a .js extension
 Like this:
 
 ```javascript
-module.exports = function ({
+module.exports = async function ({
     owner, // string - repo owner
     repo, // string - repo name
     old, // string - old branch name
@@ -94,6 +94,7 @@ module.exports = function ({
     isDryRun, // boolean - dry run flag
 }) {
     // code goes here
+    // await something()
     return {
         path: '<path to file in repo>',
         replacements: [
@@ -112,8 +113,3 @@ module.exports = function ({
 ```
 
 The file with the path in your repo will have any line matching `from` be swapped out with `to`
-
-
-### Known Issues
-
-The replacement system gives you octokit, that's great! Unfortunately replacement functions do not currently support asynchronous calls, that's bad.
