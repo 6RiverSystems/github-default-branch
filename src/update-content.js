@@ -9,7 +9,7 @@ module.exports = async function (options) {
     owner,
     repo,
     octokit,
-    isVerbose,
+    verbose,
     isDryRun,
   } = options;
   const replacementsDir = `${__dirname}/replacements`;
@@ -27,7 +27,7 @@ module.exports = async function (options) {
       }
 
       if (content !== file.content) {
-        if (isVerbose) {
+        if (verbose) {
           console.log(`✏️  Updating [${path}]`);
         }
         if (!isDryRun) {
@@ -41,12 +41,12 @@ module.exports = async function (options) {
           );
         }
       } else {
-        if (isVerbose) {
+        if (verbose) {
           console.log(`✏️  No changes detected in [${path}]`);
         }
       }
     } catch (e) {
-      if (isVerbose) {
+      if (verbose) {
         console.log(`✏️  Unable to update [${path}]`);
       }
     }
