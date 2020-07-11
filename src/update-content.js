@@ -14,18 +14,14 @@ module.exports = async function (options) {
   } = options;
   const replacementsDir = `${__dirname}/replacements`;
   const files = (await ls(replacementsDir)).filter((f) => f.endsWith('.js'));
-  const replacementFiles = {};
   for (const file of files) {
     const replacementsFn = require(`${replacementsDir}/${file}`);
     const { path, replacements } = await replacementsFn(options);
-    replacementFiles[path] = replacements;
-  }
-  for (let path in replacementFiles) {
     try {
       let file = await loadFile(owner, repo, path, octokit);
 
       let content = file.content;
-      for (let r of replacements[path]) {
+      for (let r of replacements) {
         const re = new RegExp(r.from, "g");
         content = replaceAll(content, re, r.to);
       }
